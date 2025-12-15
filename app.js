@@ -7,6 +7,7 @@ import { env } from './src/config/env.js';
 import dashboardRoutes from './src/routes/dashboard.routes.js'
 import employeeRoutes from './src/routes/employee.routes.js'
 import locationRoutes from './src/routes/location.routes.js'
+import activityRoutes from './src/routes/activity.routes.js'
 
 /**
  * Express Application Setup
@@ -39,6 +40,7 @@ app.use('/user', userRoutes);
 app.use('/dashboard', dashboardRoutes)
 app.use('/employee', employeeRoutes)
 app.use('/location', locationRoutes)
+app.use('/activity', activityRoutes)
 // 404 handler for undefined routes
 app.use('*', (req, res) => {
   res.status(404).json({
