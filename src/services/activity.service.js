@@ -12,9 +12,9 @@ export const createActivityService = async (data)=>{
 }
 
 
-export const getActivityService = async ()=>{
+export const getActivityService = async (userId)=>{
     try{
-        const getActivity = await dailyActivityReportModel.find();
+        const getActivity = await dailyActivityReportModel.find({ userId });
         if(getActivity.length === 0){
             throw new Error('No Activity Found');
         }

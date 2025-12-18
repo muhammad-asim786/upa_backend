@@ -45,8 +45,11 @@ export const createActivityController = async (req, res)=>{
 
 
 export const getActivityController = async (req, res)=> {
+
     try{
-        const result = await activityServices.getActivityService();
+            const userId = req.user.userId;
+        console.log("userId===========>", userId);
+        const result = await activityServices.getActivityService(userId);
 
         if(!result){
             throw new Error('Failed to Get Activity');

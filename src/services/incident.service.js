@@ -12,9 +12,9 @@ export const createIncidentReportService = async (data)=>{
 }
 
 
-export const getIncidentReportService = async ()=>{
+export const getIncidentReportService = async (userId)=>{
     try{
-        const getIncidentReport = await incidentReportModel.find();
+        const getIncidentReport = await incidentReportModel.find({ userId });
         if(getIncidentReport.length === 0){
             throw new Error('No Incident Report Found');
         }
