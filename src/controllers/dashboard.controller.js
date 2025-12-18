@@ -14,7 +14,7 @@ export const storeDashboardData = async (req, res) => {
 
     const { activityReport, incidentsReport, trespass, patrolReport, employeeAnniversary } = req.body;
     const userId = req.user.userId;  // token decoded in authenticate middleware
-
+    
     const data = {
         userID: userId,
         activityReport,

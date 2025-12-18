@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 
 
-const dailyActivityReportSchema = new mongoose.Schema({
+const incidentReportSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -62,8 +62,8 @@ const dailyActivityReportSchema = new mongoose.Schema({
 
 
 
-const dailyActivityReportModel = mongoose.model("DailyActivityReport", dailyActivityReportSchema);
-export default dailyActivityReportModel;
+const incidentReportModel = mongoose.model("IncidentReport", incidentReportSchema);
+export default incidentReportModel;
 
 
 

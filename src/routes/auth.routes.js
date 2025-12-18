@@ -1,7 +1,7 @@
 import express from 'express';
 import * as authController from '../controllers/auth.controller.js';
 import { validate, schemas } from '../middleware/validate.middleware.js';
-
+import { verifyToken } from '../utils/jwt.js';
 const router = express.Router();
 
 /**
@@ -16,6 +16,12 @@ router.post(
   authController.register
 );
 
+// POST /auth/send-otp-email - Send OTP email
+router.post(
+  '/send-otp-email',
+  validate(schemas.sendOtpEmail),
+  authController.sendOtpEmail
+);
 // POST /auth/verify-otp - Verify OTP code
 router.post(
   '/verify-otp',
@@ -45,4 +51,5 @@ router.post(
 );
 
 export default router;
+
 

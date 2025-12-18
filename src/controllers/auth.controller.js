@@ -22,17 +22,29 @@ export const register = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: 'User registered successfully',
-      data: {
-        user: result.user,
-        accessToken: result.accessToken,
-        refreshToken: result.refreshToken,
-        refreshTokenExpiresAt: result.refreshTokenExpiresAt,
-      },
+      data: result
     });
   } catch (error) {
     return res.status(400).json({
       success: false,
       message: error.message || 'Registration failed',
+    });
+  }
+};
+
+export const sendOtpEmail = async (req, res) => {
+  try { 
+    const { email } = req.body;
+    const result = await authService.sendOtpEmailService(email);
+    return res.status(200).json({
+      success: true,
+      message: 'OTP email sent successfully',
+      token: result.token,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message || 'Failed to send OTP email',
     });
   }
 };
@@ -49,6 +61,7 @@ export const verifyOtpCode = async (req, res) => {
     let decoded;
     try {
       decoded = verifyToken(verificationToken);
+
     } catch (error) {
       return res.status(401).json({
         success: false,
@@ -56,7 +69,8 @@ export const verifyOtpCode = async (req, res) => {
       });
     }
 
-    const userId = decoded.userId;
+    const userId = decoded.email;
+    console.log("userId", userId);
 
     // Verify OTP
     const verificationResult = await verifyOtp(userId, otp);
@@ -91,6 +105,7 @@ export const setPassword = async (req, res) => {
   try {
     const { password, verificationToken } = req.body;
 
+
     // Decode verification token to get userId
     let decoded;
     try {
@@ -102,7 +117,7 @@ export const setPassword = async (req, res) => {
       });
     }
 
-    const userId = decoded.userId;
+    const userId = decoded.email;
 
     // Set password
     const user = await authService.setPassword(userId, password);
@@ -136,10 +151,10 @@ export const login = async (req, res) => {
       success: true,
       message: 'Login successful',
       data: {
+        user: result.user,
         accessToken: result.accessToken,
         refreshToken: result.refreshToken,
         refreshTokenExpiresAt: result.refreshTokenExpiresAt,
-        user: result.user,
       },
     });
   } catch (error) {

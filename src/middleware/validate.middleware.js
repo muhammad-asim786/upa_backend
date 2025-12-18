@@ -41,6 +41,13 @@ export const validate = (schema, property = 'body') => {
  * Common validation schemas
  */
 export const schemas = {
+  // Send OTP email schema
+  sendOtpEmail: Joi.object({
+    email: Joi.string().email().required().messages({
+      'string.email': 'Please provide a valid email address',
+      'any.required': 'Email is required',
+    }),
+  }),
   // Register user schema
   register: Joi.object({
     email: Joi.string().email().required().messages({

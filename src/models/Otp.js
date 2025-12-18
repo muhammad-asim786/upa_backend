@@ -7,14 +7,20 @@ import mongoose from 'mongoose';
 const otpSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: [true, 'User ID is required'],
-      index: true, // Index for faster lookups
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
     },
     otpHash: {
       type: String,
       required: [true, 'OTP hash is required'],
+    },
+    token: {
+      type: String,
+      required: [true, 'Token is required'],
     },
     expiresAt: {
       type: Date,

@@ -1,6 +1,9 @@
 import Otp from '../models/Otp.js';
 import { hashValue, compareHash } from '../utils/hash.js';
 import { env } from '../config/env.js';
+import { sendOtpEmail } from "../utils/sendEmail.js";
+import { generateToken } from "../utils/jwt.js";
+
 
 /**
  * OTP Service
@@ -21,35 +24,39 @@ export const generateOtp = () => {
  * @param {string} userId - User ID (ObjectId)
  * @returns {Promise<{otp: string, expiresAt: Date}>} - The generated OTP and expiration date
  */
+const email = '';
 export const createOtp = async (userId) => {
   try {
+    const email = userId;
     // Delete any existing OTP for this user
     await Otp.deleteMany({ userId });
 
     // Generate new 6-digit OTP
     const otp = generateOtp();
 
+    await sendOtpEmail(email, otp);
+
     // Hash the OTP before storing
     const otpHash = await hashValue(otp);
-
+    const token = generateToken({ email }, env.JWT_EXPIRES_IN);
     // Calculate expiration time (5 minutes from now)
     const expiresAt = new Date();
     expiresAt.setMinutes(expiresAt.getMinutes() + env.OTP_EXPIRY_MINUTES);
 
+
     // Store hashed OTP in database
     const otpDocument = new Otp({
       userId,
+      email,
       otpHash,
       expiresAt,
+      token,
       attempts: 0,
     });
 
     await otpDocument.save();
 
-    return {
-      otp, // Return plain OTP for sending via email
-      expiresAt,
-    };
+    return otpDocument;
   } catch (error) {
     throw new Error(`Error creating OTP: ${error.message}`);
   }
@@ -62,6 +69,8 @@ export const createOtp = async (userId) => {
  * @returns {Promise<{isValid: boolean, message: string}>} - Verification result
  */
 export const verifyOtp = async (userId, otp) => {
+  console.log("userId", userId);
+  console.log("otp", otp);
   try {
     // Find the most recent OTP for this user
     const otpDocument = await Otp.findOne({ userId }).sort({ createdAt: -1 });

@@ -1,9 +1,9 @@
-import * as activityServices from "../services/activity.service.js";
+import * as incidentServices from "../services/incident.service.js";
 
 
 
 
-export const createActivityController = async (req, res)=>{
+export const createIncidentReportController = async (req, res)=> {
 
 
     try{
@@ -24,43 +24,43 @@ export const createActivityController = async (req, res)=>{
             status,
         }
 
-        const result = await activityServices.createActivityService(data);
+        const result = await incidentServices.createIncidentReportService(data);
 
         if(!result){
-            throw new Error('Failed to Create Activity');
+            throw new Error('Failed to Create Incident Report');
         }
 
         return res.status(201).json({
             success: true,
-            message: 'Activity Created Successfully',
+            message: 'Incident Report Created Successfully',
             data: result,
         }); 
     }catch(error){
         return res.status(400).json({
             success: false,
-            message: error.message || 'Failed to Create Activity',
+            message: error.message || 'Failed to Create Incident Report',
         });
     }
 }
 
 
-export const getActivityController = async (req, res)=> {
+export const getIncidentReportController = async (req, res)=> {
     try{
-        const result = await activityServices.getActivityService();
+        const result = await incidentServices.getIncidentReportService();
 
         if(!result){
-            throw new Error('Failed to Get Activity');
+            throw new Error('Failed to Get Incident Report');
         }
 
         return res.status(200).json({
             success: true,
-            message: 'Activity Retrieved Successfully',
+            message: 'Incident Report Retrieved Successfully',
             data: result,
         });
     }catch(error){
         return res.status(400).json({
             success: false,
-            message: error.message || 'Failed to Create Activity',
+            message: error.message || 'Failed to Get Incident Report',
         });
     }
 }
