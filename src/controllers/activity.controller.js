@@ -48,7 +48,6 @@ export const getActivityController = async (req, res)=> {
 
     try{
             const userId = req.user.userId;
-        console.log("userId===========>", userId);
         const result = await activityServices.getActivityService(userId);
 
         if(!result){

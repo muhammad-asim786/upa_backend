@@ -9,6 +9,7 @@ import employeeRoutes from './src/routes/employee.routes.js'
 import locationRoutes from './src/routes/location.routes.js'
 import activityRoutes from './src/routes/activity.routes.js'
 import incidentRoutes from './src/routes/incident.routes.js'
+import maintenanceRoutes from './src/routes/maintenance.routes.js'
 /**
  * Express Application Setup
  * Configures middleware, routes, and error handling
@@ -42,6 +43,7 @@ app.use('/employee', employeeRoutes)
 app.use('/location', locationRoutes)
 app.use('/activity', activityRoutes)
 app.use('/incident', incidentRoutes)
+app.use('/maintenance', maintenanceRoutes)
 // 404 handler for undefined routes
 app.use('*', (req, res) => {
   res.status(404).json({
