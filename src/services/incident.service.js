@@ -15,6 +15,9 @@ export const createIncidentReportService = async (data)=>{
 export const getIncidentReportService = async (userId)=>{
     try{
         const getIncidentReport = await incidentReportModel.find({ userId });
+        if(getIncidentReport.length === 0){
+            throw new Error('No Incident Report Found');
+        }
         return getIncidentReport;
     }catch(error){
         throw new Error(`Error Getting Incident Report: ${error.message}`);

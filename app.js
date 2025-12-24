@@ -10,10 +10,11 @@ import locationRoutes from './src/routes/location.routes.js'
 import activityRoutes from './src/routes/activity.routes.js'
 import incidentRoutes from './src/routes/incident.routes.js'
 import maintenanceRoutes from './src/routes/maintenance.routes.js'
+import superviseVisitRoutes from './src/routes/supervist.routes.js'
 /**
  * Express Application Setup
  * Configures middleware, routes, and error handling
- */
+ */ 
 
 // Create Express app
 const app = express();
@@ -44,6 +45,7 @@ app.use('/location', locationRoutes)
 app.use('/activity', activityRoutes)
 app.use('/incident', incidentRoutes)
 app.use('/maintenance', maintenanceRoutes)
+app.use('/supervise-visit', superviseVisitRoutes)
 // 404 handler for undefined routes
 app.use('*', (req, res) => {
   res.status(404).json({
