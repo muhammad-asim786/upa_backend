@@ -13,6 +13,8 @@ import maintenanceRoutes from './src/routes/maintenance.routes.js'
 import superviseVisitRoutes from './src/routes/supervist.routes.js'
 import serviceCallRoutes from './src/routes/service_call.routes.js'
 import trespasserRoutes from './src/routes/trespasser.routes.js'
+import overviewReportRoutes from './src/routes/overview_report.routes.js'
+import patrolReportRoutes from './src/routes/patrol_report.routes.js'
 /**
  * Express Application Setup
  * Configures middleware, routes, and error handling
@@ -50,6 +52,8 @@ app.use('/maintenance', maintenanceRoutes)
 app.use('/supervise-visit', superviseVisitRoutes)
 app.use('/service-call', serviceCallRoutes)
 app.use('/trespasser', trespasserRoutes)
+app.use('/overview-report', overviewReportRoutes)
+app.use('/patrol-report', patrolReportRoutes)
 // 404 handler for undefined routes
 app.use('*', (req, res) => {
   res.status(404).json({
