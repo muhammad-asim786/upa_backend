@@ -15,6 +15,7 @@ import serviceCallRoutes from './src/routes/service_call.routes.js'
 import trespasserRoutes from './src/routes/trespasser.routes.js'
 import overviewReportRoutes from './src/routes/overview_report.routes.js'
 import patrolReportRoutes from './src/routes/patrol_report.routes.js'
+import useOfForceReportRoutes from './src/routes/use_of_force_report.routes.js'
 /**
  * Express Application Setup
  * Configures middleware, routes, and error handling
@@ -54,6 +55,7 @@ app.use('/service-call', serviceCallRoutes)
 app.use('/trespasser', trespasserRoutes)
 app.use('/overview-report', overviewReportRoutes)
 app.use('/patrol-report', patrolReportRoutes)
+app.use('/use-of-force-report', useOfForceReportRoutes)
 // 404 handler for undefined routes
 app.use('*', (req, res) => {
   res.status(404).json({
